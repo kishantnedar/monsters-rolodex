@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import { CardList } from "./components/card-list/card-list.component";
+import { SearchBox } from "./components/search-box/search-box.component";
 import "./App.css";
+//import e from "express";
 //https://jsonplaceholder.typicode.com/users
 class App extends Component {
   constructor() {
     super();
     this.state = {
       monsters: [],
+      searchField: "",
     };
   }
   componentDidMount() {
@@ -16,9 +19,18 @@ class App extends Component {
       .catch((err) => console.log(err));
   }
   render() {
+    const { monsters, searchField } = this.state;
+    const filteredMonsters = monsters.filter((monster) =>
+      monster.name.toLowerCase().includes(searchField.toLowerCase())
+    );
+
     return (
       <div className="App">
-        <CardList monsters={this.state.monsters}></CardList>
+        <SearchBox
+          placeholder="Input Monster"
+          handleChange={(e) => this.setState({ searchField: e.target.value })}
+        />
+        <CardList monsters={filteredMonsters}></CardList>
       </div>
     );
   }
