@@ -10,6 +10,7 @@ class App extends Component {
     this.state = {
       monsters: [],
       searchField: "",
+      test: "",
     };
   }
   componentDidMount() {
